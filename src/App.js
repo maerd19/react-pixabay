@@ -13,6 +13,7 @@ function App() {
       if (busqueda === "") return;
 
       const imagenesPorPagina = 30;
+      const key = "14411265-4057f9c64825340d522b61adf";
       const url = `https://pixabay.com/api/?key=${key}&q=${busqueda}&per_page=${imagenesPorPagina}`;
       const resultado = await axios.get(url);
       setImagenes(resultado.data.hits);
