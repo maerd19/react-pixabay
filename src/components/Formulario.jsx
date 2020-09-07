@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Error from "./Error";
 
-const Formulario = () => {
+const Formulario = ({ setBusqueda }) => {
   // definir State
   const [termino, setTermino] = useState("");
   const [error, setError] = useState(false);
+
+  const obtenerInformacion = (e) => {
+    setError(false);
+    setTermino(e.target.value);
+  };
 
   const buscarImagenes = (e) => {
     e.preventDefault();
@@ -16,6 +22,7 @@ const Formulario = () => {
     }
 
     // Enviar busqueda al componente principal
+    setBusqueda(termino);
   };
   return (
     <form onSubmit={buscarImagenes}>
@@ -25,7 +32,7 @@ const Formulario = () => {
             type="text"
             className="form-control form-control-lg"
             placeholder="Buscar una imagen"
-            onChange={(e) => setTermino(e.target.value)}
+            onChange={obtenerInformacion}
           />
         </div>
 
@@ -41,6 +48,10 @@ const Formulario = () => {
       {error ? <Error mensaje="Agrega un termino de busqueda" /> : null}
     </form>
   );
+};
+
+Formulario.propTypes = {
+  setBusqueda: PropTypes.func.isRequired,
 };
 
 export default Formulario;
