@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Formulario from "./components/Formulario";
+import ListadoImagenes from "./components/ListadoImagenes";
 
 function App() {
   // State de la app
@@ -25,6 +26,10 @@ function App() {
         <p className="lead text-center">Buscador de Imagenes</p>
 
         <Formulario setBusqueda={setBusqueda} />
+      </div>
+
+      <div className="row justify-content-center">
+        <ListadoImagenes imagenes={imagenes} />
       </div>
     </div>
   );
