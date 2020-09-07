@@ -7,16 +7,24 @@ function App() {
   // State de la app
   const [busqueda, setBusqueda] = useState("");
   const [imagenes, setImagenes] = useState([]);
+  // Paginador
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
   useEffect(() => {
     const consultarAPI = async () => {
       if (busqueda === "") return;
 
       const imagenesPorPagina = 30;
-      const key = "14411265-4057f9c64825340d522b61adf";
       const url = `https://pixabay.com/api/?key=${key}&q=${busqueda}&per_page=${imagenesPorPagina}`;
       const resultado = await axios.get(url);
       setImagenes(resultado.data.hits);
+
+      // Calcular el total de paginas
+      const calcularTotalPaginas = Math.ceil(
+        resultado.data.totalHits / imagenesPorPagina
+      );
+      setTotalPaginas(calcularTotalPaginas);
     };
     consultarAPI();
   }, [busqueda]);
